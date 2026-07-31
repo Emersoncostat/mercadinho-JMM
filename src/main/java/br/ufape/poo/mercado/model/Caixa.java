@@ -17,4 +17,34 @@ public class Caixa {
     private String dataAbertura;
     private String dataFechamento;
 
+public Caixa() {} 
+ 
+public Integer getID() { return id; }
+public void setId(Integer id) {this.id = id;}
+ 
+public double getsaldoInicial() {return saldoInicial; }
+public void setsaldoInicial (double saldoInicial) { this.saldoInicial = saldoInicial;}
+ 
+public double getsaldoFinal() {return saldoFinal; };
+public void setsaldoFinal (double saldoFinal) { this.saldoFinal = saldoFinal; }
+ 
+public void abrirCaixa (double valorInicial) {
+	 this.saldoInicial = valorInicial;
+	 this.saldoFinal = valorInicial;
+}
+
+public void fecharCaixa() {
+	//Decidir se o mercado vai ser digital também ou apenas fisico.
+	
+}
+
+public double calcularSaldo(double totalVendas) {
+	if (this.saldoInicial != null) {
+		this.saldoFinal = this.saldoInicial + totalVendas;
+	}else {
+		this.saldoFinal = totalVendas;
+	}
+	return this.saldoFinal;
+}
+
 }
