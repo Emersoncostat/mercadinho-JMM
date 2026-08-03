@@ -17,8 +17,9 @@ public class Caixa {
     private String dataAbertura;
     private String dataFechamento;
 
-public Caixa() {} 
+public Caixa() {} //construtor
  
+//get e set
 public Integer getID() { return id; }
 public void setId(Integer id) {this.id = id;}
  
@@ -28,6 +29,8 @@ public void setsaldoInicial (double saldoInicial) { this.saldoInicial = saldoIni
 public double getsaldoFinal() {return saldoFinal; };
 public void setsaldoFinal (double saldoFinal) { this.saldoFinal = saldoFinal; }
  
+
+//função
 public void abrirCaixa (double valorInicial) {
 	 this.saldoInicial = valorInicial;
 	 this.saldoFinal = valorInicial;
