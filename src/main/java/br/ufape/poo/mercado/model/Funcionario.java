@@ -19,7 +19,8 @@ public class Funcionario {
     private String cargo;
     private Double salario;
     private String senha;
-    
+
+    public Funcionario() {}
  // Construtor
     public Funcionario(String nome, String cpf, String telefone, String email, String cargo, Double salario, String senha) {
         this.nome = nome;

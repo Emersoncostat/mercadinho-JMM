@@ -18,6 +18,8 @@ public class Pagamento {
     private String status;
     private Double troco;
 
+
+    public Pagamento() {}
     // Construtor
     public Pagamento (String tipoPagamento, Double valorPago, String dataPagamento, String status, Double troco) {
         this.tipoPagamento = tipoPagamento;

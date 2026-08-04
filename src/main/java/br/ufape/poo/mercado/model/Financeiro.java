@@ -17,6 +17,8 @@ public class Financeiro {
     private Double lucro;
     private String dataRegistro;
 
+    public Financeiro() {} // Construtor sem argumentos
+
     //construtor
     public Financeiro(Double receita, Double despesa, Double lucro, String dataRegistro) {
         this.receita = receita;

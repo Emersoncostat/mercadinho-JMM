@@ -17,7 +17,9 @@ public class Fornecedor {
     private String telefone;
     private String endereco;
     private String email;
-    
+
+    public Fornecedor() {}
+
  // Construtor
     public Fornecedor(String nome, String cnpj, String telefone, String endereco, String email) {
         this.nome = nome;

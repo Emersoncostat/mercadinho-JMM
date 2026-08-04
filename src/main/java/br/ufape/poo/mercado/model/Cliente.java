@@ -18,6 +18,8 @@ public class Cliente {
     private String endereco;
     private String email;
 
+    public Cliente() {} //Construtor
+
     //get e set
     
     public Integer getId() {

@@ -1,9 +1,6 @@
 package br.ufape.poo.mercado.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Venda {
@@ -16,8 +13,11 @@ public class Venda {
     private Double valorTotal;
     private Integer quantidadeProdutos;
     private Double desconto;
+
+    @ManyToOne
     private Produto produto;
 
+    public Venda() {}
     // Construtor
     public Venda(String dataVenda, Double valorTotal, Integer quantidadeProdutos, Double desconto, Produto produto) {
         this.dataVenda = dataVenda;
@@ -77,8 +77,8 @@ public class Venda {
     }
 
     // Função para adicionar produtos à venda
-    public void adicionarProduto (Produto produto, Integer quantidade) {
-        Double subtotal = produto.getPreco() * quantidade;
+    public void adicionarProduto (Produto p, Integer quantidade) {
+        Double subtotal = p.getPreco() * quantidade;
         this.valorTotal += subtotal;
         this.quantidadeProdutos += quantidade;
     }

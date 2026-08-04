@@ -17,6 +17,8 @@ public class Estoque {
     private Integer estoqueMaximo;
     private String dataAtualizacao;
 
+    public Estoque() {} // Construtor sem argumentos
+
     // Construtor 
     public Estoque(Integer quantidadeDisponivel, Integer estoqueMinimo, Integer estoqueMaximo, String dataAtualizacao) {
         this.quantidadeDisponivel = quantidadeDisponivel;
