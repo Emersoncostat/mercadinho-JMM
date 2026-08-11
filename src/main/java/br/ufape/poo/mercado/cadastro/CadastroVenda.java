@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.ufape.poo.mercado.exception.ObjetoNaoEncontradoException;
+import br.ufape.poo.mercado.negocio.excecoes.EntidadeNaoEncontradaException;
 import br.ufape.poo.mercado.model.Venda;
 import br.ufape.poo.mercado.repository.VendaRepository;
 
@@ -18,9 +18,12 @@ public class CadastroVenda {
         return colecaoVenda.save(entity);
     }
 
-    public Venda procurarVendaId(Integer id) throws ObjetoNaoEncontradoException {
-        return colecaoVenda.findById(id)
-                .orElseThrow(() -> new ObjetoNaoEncontradoException("Venda não encontrada com o ID: " + id));
+    public Venda procurarVendaId(Integer id) throws EntidadeNaoEncontradaException {
+        Venda v = colecaoVenda.findById(id).orElse(null);
+        if (v == null) {
+            throw new EntidadeNaoEncontradaException(String.valueOf(id));
+        }
+        return v;
     }
 
     public List<Venda> listarVendas() {
@@ -31,9 +34,10 @@ public class CadastroVenda {
         return colecaoVenda.existsById(id);
     }
 
-    public void removerVendaId(Integer id) throws ObjetoNaoEncontradoException {
-        if (!verificarExistenciaVendaId(id)) {
-            throw new ObjetoNaoEncontradoException("Venda não encontrada com o ID: " + id);
+    public void removerVendaId(Integer id) throws EntidadeNaoEncontradaException {
+        Venda v = colecaoVenda.findById(id).orElse(null);
+        if (v == null) {
+            throw new EntidadeNaoEncontradaException(String.valueOf(id));
         }
         colecaoVenda.deleteById(id);
     }

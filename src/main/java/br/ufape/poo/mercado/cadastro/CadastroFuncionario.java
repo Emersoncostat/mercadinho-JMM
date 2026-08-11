@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.ufape.poo.mercado.exception.ObjetoNaoEncontradoException;
+import br.ufape.poo.mercado.negocio.excecoes.EntidadeNaoEncontradaException;
 import br.ufape.poo.mercado.model.Funcionario;
 import br.ufape.poo.mercado.repository.FuncionarioRepository;
 
@@ -17,23 +17,23 @@ public class CadastroFuncionario {
     public Funcionario salvarFuncionario(Funcionario entity) {
         return colecaoFuncionario.save(entity);
     }
-
-    public Funcionario procurarFuncionarioId(Integer id) throws ObjetoNaoEncontradoException {
-        return colecaoFuncionario.findById(id)
-                .orElseThrow(() -> new ObjetoNaoEncontradoException("Funcionário não encontrado com o ID: " + id));
+    public Funcionario procurarFuncionarioId(Integer id) throws EntidadeNaoEncontradaException {
+        Funcionario f = colecaoFuncionario.findById(id).orElse(null);
+        if (f == null) {
+            throw new EntidadeNaoEncontradaException(String.valueOf(id));
+        }
+        return f;
     }
-
     public List<Funcionario> listarFuncionarios() {
         return colecaoFuncionario.findAll();
     }
-
     public boolean verificarExistenciaFuncionarioId(Integer id) {
         return colecaoFuncionario.existsById(id);
     }
-
-    public void removerFuncionarioId(Integer id) throws ObjetoNaoEncontradoException {
-        if (!verificarExistenciaFuncionarioId(id)) {
-            throw new ObjetoNaoEncontradoException("Funcionário não encontrado com o ID: " + id);
+    public void removerFuncionarioId(Integer id) throws EntidadeNaoEncontradaException {
+        Funcionario f = colecaoFuncionario.findById(id).orElse(null);
+        if (f == null) {
+            throw new EntidadeNaoEncontradaException(String.valueOf(id));
         }
         colecaoFuncionario.deleteById(id);
     }

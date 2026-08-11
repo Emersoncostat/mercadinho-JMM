@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.ufape.poo.mercado.exception.ObjetoNaoEncontradoException;
+import br.ufape.poo.mercado.negocio.excecoes.EntidadeNaoEncontradaException;
 import br.ufape.poo.mercado.model.Lote;
 import br.ufape.poo.mercado.repository.LoteRepository;
 
@@ -17,23 +17,23 @@ public class CadastroLote {
     public Lote salvarLote(Lote entity) {
         return colecaoLote.save(entity);
     }
-
-    public Lote procurarLoteId(Integer id) throws ObjetoNaoEncontradoException {
-        return colecaoLote.findById(id)
-                .orElseThrow(() -> new ObjetoNaoEncontradoException("Lote não encontrado com o ID: " + id));
+    public Lote procurarLoteId(Long id) throws EntidadeNaoEncontradaException {
+        Lote l = colecaoLote.findById(id).orElse(null);
+        if (l == null) {
+            throw new EntidadeNaoEncontradaException(String.valueOf(id));
+        }
+        return l;
     }
-
     public List<Lote> listarLotes() {
         return colecaoLote.findAll();
     }
-
-    public boolean verificarExistenciaLoteId(Integer id) {
+    public boolean verificarExistenciaLoteId(Long id) {
         return colecaoLote.existsById(id);
     }
-
-    public void removerLoteId(Integer id) throws ObjetoNaoEncontradoException {
-        if (!verificarExistenciaLoteId(id)) {
-            throw new ObjetoNaoEncontradoException("Lote não encontrado com o ID: " + id);
+    public void removerLoteId(Long id) throws EntidadeNaoEncontradaException {
+        Lote l = colecaoLote.findById(id).orElse(null);
+        if (l == null) {
+            throw new EntidadeNaoEncontradaException(String.valueOf(id));
         }
         colecaoLote.deleteById(id);
     }

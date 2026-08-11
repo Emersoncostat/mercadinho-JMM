@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.ufape.poo.mercado.exception.ObjetoNaoEncontradoException;
+import br.ufape.poo.mercado.negocio.excecoes.EntidadeNaoEncontradaException;
 import br.ufape.poo.mercado.model.Caixa;
 import br.ufape.poo.mercado.repository.CaixaRepository;
 
@@ -17,23 +17,19 @@ public class CadastroCaixa {
     public Caixa salvarCaixa(Caixa entity) {
         return colecaoCaixa.save(entity);
     }
-
-    public Caixa procurarCaixaId(Integer id) throws ObjetoNaoEncontradoException {
+    public Caixa procurarCaixaId(Integer id) throws EntidadeNaoEncontradaException {
         return colecaoCaixa.findById(id)
-                .orElseThrow(() -> new ObjetoNaoEncontradoException("Caixa não encontrado com o ID: " + id));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException(String.valueOf(id)));
     }
-
     public List<Caixa> listarCaixas() {
         return colecaoCaixa.findAll();
     }
-
     public boolean verificarExistenciaCaixaId(Integer id) {
         return colecaoCaixa.existsById(id);
     }
-
-    public void removerCaixaId(Integer id) throws ObjetoNaoEncontradoException {
+    public void removerCaixaId(Integer id) throws EntidadeNaoEncontradaException {
         if (!verificarExistenciaCaixaId(id)) {
-            throw new ObjetoNaoEncontradoException("Caixa não encontrado com o ID: " + id);
+            throw new EntidadeNaoEncontradaException(String.valueOf(id));
         }
         colecaoCaixa.deleteById(id);
     }

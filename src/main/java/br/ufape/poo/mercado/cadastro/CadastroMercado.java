@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.ufape.poo.mercado.exception.ObjetoNaoEncontradoException;
+import br.ufape.poo.mercado.negocio.excecoes.EntidadeNaoEncontradaException;
 import br.ufape.poo.mercado.model.Mercado;
 import br.ufape.poo.mercado.repository.MercadoRepository;
 
@@ -18,22 +18,26 @@ public class CadastroMercado {
         return colecaoMercado.save(entity);
     }
 
-    public Mercado procurarMercadoId(Integer id) throws ObjetoNaoEncontradoException {
-        return colecaoMercado.findById(id)
-                .orElseThrow(() -> new ObjetoNaoEncontradoException("Mercado não encontrado com o ID: " + id));
+    public Mercado procurarMercadoId(Long id) throws EntidadeNaoEncontradaException {
+        Mercado m = colecaoMercado.findById(id).orElse(null);
+        if (m == null) {
+            throw new EntidadeNaoEncontradaException(String.valueOf(id));
+        }
+        return m;
     }
 
     public List<Mercado> listarMercados() {
         return colecaoMercado.findAll();
     }
 
-    public boolean verificarExistenciaMercadoId(Integer id) {
+    public boolean verificarExistenciaMercadoId(Long id) {
         return colecaoMercado.existsById(id);
     }
 
-    public void removerMercadoId(Integer id) throws ObjetoNaoEncontradoException {
-        if (!verificarExistenciaMercadoId(id)) {
-            throw new ObjetoNaoEncontradoException("Mercado não encontrado com o ID: " + id);
+    public void removerMercadoId(Long id) throws EntidadeNaoEncontradaException {
+        Mercado m = colecaoMercado.findById(id).orElse(null);
+        if (m == null) {
+            throw new EntidadeNaoEncontradaException(String.valueOf(id));
         }
         colecaoMercado.deleteById(id);
     }
