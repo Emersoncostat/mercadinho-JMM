@@ -6,14 +6,16 @@ import br.ufape.poo.mercado.model.Financeiro;
 import br.ufape.poo.mercado.negocio.excecoes.EntidadeNaoEncontradaException;
 
 public interface InterfaceCadastroFinanceiro {
-    
-    Financeiro cadastrarFinanceiro(Financeiro entity);
 
-    Financeiro procurarFinanceiroId(Integer id) throws EntidadeNaoEncontradaException;
+    Financeiro salvarFinanceiro(Financeiro entity);
 
-    List<Financeiro> lisrtFinanceiros();
+    Financeiro procurarFinanceiroId(Integer id)
+            throws EntidadeNaoEncontradaException;
+
+    List<Financeiro> listarFinanceiros();
 
     boolean verificarExistenciaFinanceiroId(Integer id);
 
-    void removerFinanceiroId(Integer id) throws EntidadeNaoEncontradaException;
+    void removerFinanceiroId(Integer id)
+            throws EntidadeNaoEncontradaException;
 }
