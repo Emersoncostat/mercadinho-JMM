@@ -9,7 +9,7 @@ import br.ufape.poo.mercado.model.Caixa;
 import br.ufape.poo.mercado.repository.CaixaRepository;
 
 @Service
-public class CadastroCaixa {
+public class CadastroCaixa implements InterfaceCadastroCaixa {
 
     @Autowired
     private CaixaRepository colecaoCaixa;

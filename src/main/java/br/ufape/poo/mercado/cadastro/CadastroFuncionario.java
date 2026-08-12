@@ -9,8 +9,7 @@ import br.ufape.poo.mercado.model.Funcionario;
 import br.ufape.poo.mercado.repository.FuncionarioRepository;
 
 @Service
-public class CadastroFuncionario {
-
+public class CadastroFuncionario implements InterfaceCadastroFuncionario {
     @Autowired
     private FuncionarioRepository colecaoFuncionario;
 

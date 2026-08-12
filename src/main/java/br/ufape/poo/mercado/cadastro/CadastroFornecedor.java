@@ -9,8 +9,7 @@ import br.ufape.poo.mercado.model.Fornecedor;
 import br.ufape.poo.mercado.repository.FornecedorRepository;
 
 @Service
-public class CadastroFornecedor {
-
+public class CadastroFornecedor implements InterfaceCadastroFornecedor {
     @Autowired
     private FornecedorRepository colecaoFornecedor;
 

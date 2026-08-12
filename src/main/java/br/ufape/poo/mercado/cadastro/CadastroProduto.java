@@ -9,8 +9,7 @@ import br.ufape.poo.mercado.model.Produto;
 import br.ufape.poo.mercado.repository.ProdutoRepository;
 
 @Service
-public class CadastroProduto {
-
+public class CadastroProduto implements InterfaceCadastroProduto {
     @Autowired
     private ProdutoRepository colecaoProduto;
 

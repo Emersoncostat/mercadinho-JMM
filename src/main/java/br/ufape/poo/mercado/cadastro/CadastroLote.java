@@ -9,8 +9,7 @@ import br.ufape.poo.mercado.model.Lote;
 import br.ufape.poo.mercado.repository.LoteRepository;
 
 @Service
-public class CadastroLote {
-
+public class CadastroLote implements InterfaceCadastroLote {
     @Autowired
     private LoteRepository colecaoLote;
 

@@ -10,7 +10,6 @@ import br.ufape.poo.mercado.repository.EstoqueRepository;
 
 @Service
 public class CadastroEstoque implements InterfaceCadastroEstoque {
-
     @Autowired
     private EstoqueRepository colecaoEstoque;
 
