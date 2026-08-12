@@ -50,4 +50,19 @@ public class Caixa {
 		return this.saldoFinal;
 	}
 
+	public String getDataAbertura() {
+		return dataAbertura;
+	}
+
+	public void setDataAbertura(String dataAbertura) {
+		this.dataAbertura = dataAbertura;
+	}
+
+	public String getDataFechamento() {
+		return dataFechamento;
+	}
+
+	public void setDataFechamento(String dataFechamento) {
+		this.dataFechamento = dataFechamento;
+	}
 }
