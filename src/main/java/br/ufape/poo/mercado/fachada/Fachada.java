@@ -1,6 +1,8 @@
 package br.ufape.poo.mercado.fachada;
 
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import br.ufape.poo.mercado.cadastro.InterfaceCadastroCaixa;
 import br.ufape.poo.mercado.cadastro.InterfaceCadastroCliente;
@@ -14,18 +16,6 @@ import br.ufape.poo.mercado.cadastro.InterfaceCadastroPagamento;
 import br.ufape.poo.mercado.cadastro.InterfaceCadastroProduto;
 import br.ufape.poo.mercado.cadastro.InterfaceCadastroVenda;
 
-import br.ufape.poo.mercado.cadastro.CadastroCaixa;
-import br.ufape.poo.mercado.cadastro.CadastroCliente;
-import br.ufape.poo.mercado.cadastro.CadastroEstoque;
-import br.ufape.poo.mercado.cadastro.CadastroFinanceiro;
-import br.ufape.poo.mercado.cadastro.CadastroFornecedor;
-import br.ufape.poo.mercado.cadastro.CadastroFuncionario;
-import br.ufape.poo.mercado.cadastro.CadastroLote;
-import br.ufape.poo.mercado.cadastro.CadastroMercado;
-import br.ufape.poo.mercado.cadastro.CadastroPagamento;
-import br.ufape.poo.mercado.cadastro.CadastroProduto;
-import br.ufape.poo.mercado.cadastro.CadastroVenda;
-
 import br.ufape.poo.mercado.model.Caixa;
 import br.ufape.poo.mercado.model.Cliente;
 import br.ufape.poo.mercado.model.Estoque;
@@ -37,36 +27,45 @@ import br.ufape.poo.mercado.model.Mercado;
 import br.ufape.poo.mercado.model.Pagamento;
 import br.ufape.poo.mercado.model.Produto;
 import br.ufape.poo.mercado.model.Venda;
-
 import br.ufape.poo.mercado.negocio.excecoes.EntidadeNaoEncontradaException;
 
+@Component
 public class Fachada {
 
+    @Autowired
     private InterfaceCadastroCaixa cadastroCaixa;
+
+    @Autowired
     private InterfaceCadastroCliente cadastroCliente;
+
+    @Autowired
     private InterfaceCadastroEstoque cadastroEstoque;
+
+    @Autowired
     private InterfaceCadastroFinanceiro cadastroFinanceiro;
+
+    @Autowired
     private InterfaceCadastroFornecedor cadastroFornecedor;
+
+    @Autowired
     private InterfaceCadastroFuncionario cadastroFuncionario;
+
+    @Autowired
     private InterfaceCadastroLote cadastroLote;
+
+    @Autowired
     private InterfaceCadastroMercado cadastroMercado;
+
+    @Autowired
     private InterfaceCadastroPagamento cadastroPagamento;
+
+    @Autowired
     private InterfaceCadastroProduto cadastroProduto;
+
+    @Autowired
     private InterfaceCadastroVenda cadastroVenda;
 
-    public Fachada() {
-        this.cadastroCaixa = new CadastroCaixa();
-        this.cadastroCliente = new CadastroCliente();
-        this.cadastroEstoque = new CadastroEstoque();
-        this.cadastroFinanceiro = new CadastroFinanceiro();
-        this.cadastroFornecedor = new CadastroFornecedor();
-        this.cadastroFuncionario = new CadastroFuncionario();
-        this.cadastroLote = new CadastroLote();
-        this.cadastroMercado = new CadastroMercado();
-        this.cadastroPagamento = new CadastroPagamento();
-        this.cadastroProduto = new CadastroProduto();
-        this.cadastroVenda = new CadastroVenda();
-    }
+    // O construtor antigo com "new" foi removido para permitir a injeção do Spring
 
     // Caixa
     public Caixa salvarCaixa(Caixa caixa) {
@@ -89,7 +88,7 @@ public class Fachada {
         cadastroCaixa.removerCaixaId(id);
     }
 
-    //Cliente
+    // Cliente
     public Cliente salvarCliente(Cliente cliente) {
         return cadastroCliente.salvarCliente(cliente);
     }
@@ -278,7 +277,7 @@ public class Fachada {
         cadastroProduto.removerProdutoId(id);
     }
 
-    // Vend
+    // Venda
     public Venda salvarVenda(Venda venda) {
         return cadastroVenda.salvarVenda(venda);
     }
@@ -298,19 +297,22 @@ public class Fachada {
     public void removerVendaId(Integer id) throws EntidadeNaoEncontradaException {
         cadastroVenda.removerVendaId(id);
     }
-    // Regra de Negócio Complexa - Tópicos 6 e 7
+
     public Venda realizarVendaProduto(Integer idProduto, Integer quantidade, Double desconto) throws EntidadeNaoEncontradaException {
-        // 1. Busca o produto usando o cadastro de produtos
+
         Produto produto = cadastroProduto.procurarProdutoId(idProduto);
 
-        // 2. Instancia uma nova venda (data atual, valores iniciais zerados)
+
         Venda novaVenda = new Venda("12/08/2026", 0.0, 0, desconto, produto);
 
-        // 3. Executa as regras de negócio da própria entidade Venda
+
+        novaVenda.setValorTotal(0.0);
+        novaVenda.setQuantidadeProdutos(0);
+
+
         novaVenda.adicionarProduto(produto, quantidade);
         novaVenda.finalizarVenda();
 
-        // 4. Salva a venda finalizada usando o cadastro de vendas
         return cadastroVenda.salvarVenda(novaVenda);
     }
 
