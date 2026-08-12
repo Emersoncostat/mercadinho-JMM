@@ -298,4 +298,20 @@ public class Fachada {
     public void removerVendaId(Integer id) throws EntidadeNaoEncontradaException {
         cadastroVenda.removerVendaId(id);
     }
+    // Regra de Negócio Complexa - Tópicos 6 e 7
+    public Venda realizarVendaProduto(Integer idProduto, Integer quantidade, Double desconto) throws EntidadeNaoEncontradaException {
+        // 1. Busca o produto usando o cadastro de produtos
+        Produto produto = cadastroProduto.procurarProdutoId(idProduto);
+
+        // 2. Instancia uma nova venda (data atual, valores iniciais zerados)
+        Venda novaVenda = new Venda("12/08/2026", 0.0, 0, desconto, produto);
+
+        // 3. Executa as regras de negócio da própria entidade Venda
+        novaVenda.adicionarProduto(produto, quantidade);
+        novaVenda.finalizarVenda();
+
+        // 4. Salva a venda finalizada usando o cadastro de vendas
+        return cadastroVenda.salvarVenda(novaVenda);
+    }
+
 }
