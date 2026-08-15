@@ -41,22 +41,14 @@ public class FornecedorController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> buscarPorId(@PathVariable Integer id) {
-        try {
-            Fornecedor fornecedor = fachada.procurarFornecedorId(id);
-            return ResponseEntity.ok(conversor.entityToResponse(fornecedor));
-        } catch (EntidadeNaoEncontradaException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    public ResponseEntity<FornecedorDTOResponse> buscarPorId(@PathVariable Integer id) throws EntidadeNaoEncontradaException {
+        Fornecedor fornecedor = fachada.procurarFornecedorId(id);
+        return ResponseEntity.ok(conversor.entityToResponse(fornecedor));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletar(@PathVariable Integer id) {
-        try {
-            fachada.removerFornecedorId(id);
-            return ResponseEntity.noContent().build();
-        } catch (EntidadeNaoEncontradaException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    public ResponseEntity<Void> deletar(@PathVariable Integer id) throws EntidadeNaoEncontradaException {
+        fachada.removerFornecedorId(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -2,6 +2,7 @@ package br.ufape.poo.mercado.comunicacao.controller;
 
 import java.util.List;
 
+import br.ufape.poo.mercado.negocio.excecoes.EntidadeNaoEncontradaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,6 @@ import br.ufape.poo.mercado.comunicacao.dto.request.ClienteDTORequest;
 import br.ufape.poo.mercado.comunicacao.dto.response.ClienteDTOResponse;
 import br.ufape.poo.mercado.fachada.Fachada;
 import br.ufape.poo.mercado.model.Cliente;
-import br.ufape.poo.mercado.negocio.excecoes.EntidadeNaoEncontradaException;
 
 @RestController
 @RequestMapping("/api/clientes")
@@ -41,22 +41,14 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> buscarPorId(@PathVariable Integer id) {
-        try {
-            Cliente cliente = fachada.procurarClienteId(id);
-            return ResponseEntity.ok(conversor.entityToResponse(cliente));
-        } catch (EntidadeNaoEncontradaException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    public ResponseEntity<ClienteDTOResponse> buscarPorId(@PathVariable Integer id) throws EntidadeNaoEncontradaException {
+        Cliente cliente = fachada.procurarClienteId(id);
+        return ResponseEntity.ok(conversor.entityToResponse(cliente));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletar(@PathVariable Integer id) {
-        try {
-            fachada.removerClienteId(id);
-            return ResponseEntity.noContent().build();
-        } catch (EntidadeNaoEncontradaException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    public ResponseEntity<Void> deletar(@PathVariable Integer id) throws EntidadeNaoEncontradaException {
+        fachada.removerClienteId(id);
+        return ResponseEntity.noContent().build();
     }
 }

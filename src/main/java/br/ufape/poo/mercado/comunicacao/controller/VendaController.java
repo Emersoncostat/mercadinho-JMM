@@ -25,17 +25,13 @@ public class VendaController {
     private VendaConversor conversor;
 
     @PostMapping
-    public ResponseEntity<?> realizarVenda(@RequestBody VendaDTORequest dto) {
-        try {
-            Venda venda = fachada.realizarVendaProduto(
-                    dto.idProduto(),
-                    dto.quantidade(),
-                    dto.desconto()
-            );
-            return ResponseEntity.status(HttpStatus.CREATED).body(conversor.entityToResponse(venda));
-        } catch (EntidadeNaoEncontradaException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    public ResponseEntity<VendaDTOResponse> realizarVenda(@RequestBody VendaDTORequest dto) throws EntidadeNaoEncontradaException {
+        Venda venda = fachada.realizarVendaProduto(
+                dto.idProduto(),
+                dto.quantidade(),
+                dto.desconto()
+        );
+        return ResponseEntity.status(HttpStatus.CREATED).body(conversor.entityToResponse(venda));
     }
 
     @GetMapping
@@ -48,22 +44,14 @@ public class VendaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> buscarPorId(@PathVariable Integer id) {
-        try {
-            Venda venda = fachada.procurarVendaId(id);
-            return ResponseEntity.ok(conversor.entityToResponse(venda));
-        } catch (EntidadeNaoEncontradaException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    public ResponseEntity<VendaDTOResponse> buscarPorId(@PathVariable Integer id) throws EntidadeNaoEncontradaException {
+        Venda venda = fachada.procurarVendaId(id);
+        return ResponseEntity.ok(conversor.entityToResponse(venda));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletar(@PathVariable Integer id) {
-        try {
-            fachada.removerVendaId(id);
-            return ResponseEntity.noContent().build();
-        } catch (EntidadeNaoEncontradaException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+    public ResponseEntity<Void> deletar(@PathVariable Integer id) throws EntidadeNaoEncontradaException {
+        fachada.removerVendaId(id);
+        return ResponseEntity.noContent().build();
     }
 }
