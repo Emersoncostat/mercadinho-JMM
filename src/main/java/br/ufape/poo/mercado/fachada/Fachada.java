@@ -28,7 +28,9 @@ import br.ufape.poo.mercado.model.Pagamento;
 import br.ufape.poo.mercado.model.Produto;
 import br.ufape.poo.mercado.model.Venda;
 import br.ufape.poo.mercado.negocio.excecoes.EntidadeNaoEncontradaException;
+import org.springframework.stereotype.Service;
 
+@Service
 @Component
 public class Fachada {
 
