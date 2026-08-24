@@ -36,10 +36,6 @@ public void abrirCaixa (double valorInicial) {
 	 this.saldoFinal = valorInicial;
 }
 
-public void fecharCaixa() {
-	//Decidir se o mercado vai ser digital também ou apenas fisico.
-	
-}
 
 public double calcularSaldo(double totalVendas) {
 	if (this.saldoInicial != null) {
