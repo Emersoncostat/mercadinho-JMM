@@ -25,6 +25,17 @@ public class CadastroProduto implements InterfaceCadastroProduto {
         return p;
     }
 
+    @Override
+    public Produto atualizar(Integer id, Produto produto) throws EntidadeNaoEncontradaException {
+
+        Produto produtoExistente = procurarProdutoId(id);
+
+        produtoExistente.setNome(produto.getNome());
+        produtoExistente.setPreco(produto.getPreco());
+
+        return colecaoProduto.save(produtoExistente);
+    }
+
     public List<Produto> listarProdutos() {
         return colecaoProduto.findAll();
     }

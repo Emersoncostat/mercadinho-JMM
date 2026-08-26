@@ -13,6 +13,7 @@ import br.ufape.poo.mercado.comunicacao.dto.response.ProdutoDTOResponse;
 import br.ufape.poo.mercado.fachada.Fachada;
 import br.ufape.poo.mercado.model.Produto;
 import br.ufape.poo.mercado.negocio.excecoes.EntidadeNaoEncontradaException;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/produtos")
@@ -29,6 +30,13 @@ public class ProdutoController {
         Produto produto = conversor.requestToEntity(dto);
         Produto salvo = fachada.salvarProduto(produto);
         return ResponseEntity.status(HttpStatus.CREATED).body(conversor.entityToResponse(salvo));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProdutoDTOResponse> atualizar(@PathVariable Integer id, @Valid @RequestBody ProdutoDTORequest dto) throws EntidadeNaoEncontradaException {
+        Produto produto = conversor.requestToEntity(dto);
+        Produto atualizado = fachada.atualizarProduto(id, produto);
+        return ResponseEntity.ok(conversor.entityToResponse(atualizado));
     }
 
     @GetMapping

@@ -16,4 +16,6 @@ public interface InterfaceCadastroProduto {
     boolean verificarExistenciaProdutoId(Integer id);
 
     void removerProdutoId(Integer id) throws EntidadeNaoEncontradaException;
+
+    Produto atualizar(Integer id, Produto produto) throws EntidadeNaoEncontradaException;
 }

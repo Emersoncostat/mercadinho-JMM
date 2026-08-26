@@ -269,6 +269,10 @@ public class Fachada {
         return cadastroProduto.procurarProdutoId(id);
     }
 
+    public Produto atualizarProduto(Integer id, Produto produto) throws EntidadeNaoEncontradaException {
+        return cadastroProduto.atualizar(id, produto);
+    }
+
     public List<Produto> listarProdutos() {
         return cadastroProduto.listarProdutos();
     }
