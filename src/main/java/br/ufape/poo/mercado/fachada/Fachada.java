@@ -94,7 +94,9 @@ public class Fachada {
     public Cliente salvarCliente(Cliente cliente) {
         return cadastroCliente.salvarCliente(cliente);
     }
-
+    public Cliente atualizarCliente(Integer id, Cliente cliente) throws EntidadeNaoEncontradaException {
+        return cadastroCliente.atualizarCliente(id, cliente);
+    }
     public Cliente procurarClienteId(Integer id) throws EntidadeNaoEncontradaException {
         return cadastroCliente.procurarClienteId(id);
     }

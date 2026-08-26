@@ -16,6 +16,14 @@ public class CadastroCliente implements InterfaceCadastroCliente {
     public Cliente salvarCliente(Cliente entity) {
         return colecaoCliente.save(entity);
     }
+    public Cliente atualizarCliente(Integer id, Cliente entity) throws EntidadeNaoEncontradaException {
+        if (!verificarExistenciaClienteId(id)) {
+            throw new EntidadeNaoEncontradaException(String.valueOf(id));
+        }
+
+        entity.setId(id);
+        return colecaoCliente.save(entity);
+    }
     public Cliente procurarClienteId(Integer id) throws EntidadeNaoEncontradaException {
         return colecaoCliente.findById(id)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException(String.valueOf(id)));

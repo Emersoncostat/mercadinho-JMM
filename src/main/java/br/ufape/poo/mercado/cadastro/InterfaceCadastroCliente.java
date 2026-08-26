@@ -9,8 +9,10 @@ public interface InterfaceCadastroCliente {
 
     Cliente salvarCliente(Cliente entity);
 
+    Cliente atualizarCliente(Integer id, Cliente entity) throws EntidadeNaoEncontradaException;
+
     Cliente procurarClienteId(Integer id) throws EntidadeNaoEncontradaException;
-    
+
     List<Cliente> listarClientes();
 
     boolean verificarExistenciaClienteId(Integer id);

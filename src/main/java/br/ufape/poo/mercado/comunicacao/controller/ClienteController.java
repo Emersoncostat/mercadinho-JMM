@@ -45,7 +45,16 @@ public class ClienteController {
         Cliente cliente = fachada.procurarClienteId(id);
         return ResponseEntity.ok(conversor.entityToResponse(cliente));
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<ClienteDTOResponse> atualizar(
+            @PathVariable Integer id,
+            @RequestBody ClienteDTORequest dto) throws EntidadeNaoEncontradaException {
 
+        Cliente cliente = conversor.requestToEntity(dto);
+        Cliente atualizado = fachada.atualizarCliente(id, cliente);
+
+        return ResponseEntity.ok(conversor.entityToResponse(atualizado));
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Integer id) throws EntidadeNaoEncontradaException {
         fachada.removerClienteId(id);
