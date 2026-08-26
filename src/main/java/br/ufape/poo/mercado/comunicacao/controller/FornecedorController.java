@@ -13,6 +13,7 @@ import br.ufape.poo.mercado.comunicacao.dto.response.FornecedorDTOResponse;
 import br.ufape.poo.mercado.fachada.Fachada;
 import br.ufape.poo.mercado.model.Fornecedor;
 import br.ufape.poo.mercado.negocio.excecoes.EntidadeNaoEncontradaException;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/fornecedores")
@@ -29,6 +30,13 @@ public class FornecedorController {
         Fornecedor fornecedor = conversor.requestToEntity(dto);
         Fornecedor salvo = fachada.salvarFornecedor(fornecedor);
         return ResponseEntity.status(HttpStatus.CREATED).body(conversor.entityToResponse(salvo));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<FornecedorDTOResponse> atualizar(@PathVariable Integer id, @Valid @RequestBody FornecedorDTORequest dto) throws EntidadeNaoEncontradaException {
+        Fornecedor fornecedor = conversor.requestToEntity(dto);
+        Fornecedor atualizado = fachada.atualizarFornecedor(id, fornecedor);
+        return ResponseEntity.ok(conversor.entityToResponse(atualizado));
     }
 
     @GetMapping

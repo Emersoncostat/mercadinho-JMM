@@ -11,6 +11,8 @@ public interface  InterfaceCadastroFornecedor {
 
     Fornecedor procurarFornecedorId(Integer id) throws EntidadeNaoEncontradaException;
 
+    Fornecedor atualizar(Integer id, Fornecedor fornecedor) throws EntidadeNaoEncontradaException;
+
     List<Fornecedor> listarFornecedores();
 
     boolean verificarExistenciaFornecedorId(Integer id);

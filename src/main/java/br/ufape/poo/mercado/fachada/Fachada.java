@@ -175,6 +175,9 @@ public class Fachada {
     public void removerFornecedorId(Integer id) throws EntidadeNaoEncontradaException {
         cadastroFornecedor.removerFornecedorId(id);
     }
+    public Fornecedor atualizarFornecedor(Integer id, Fornecedor fornecedor) throws EntidadeNaoEncontradaException {
+        return cadastroFornecedor.atualizar(id, fornecedor);
+    }
 
     // Funcionario
     public Funcionario salvarFuncionario(Funcionario funcionario) {

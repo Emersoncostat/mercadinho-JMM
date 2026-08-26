@@ -36,4 +36,16 @@ public class CadastroFornecedor implements InterfaceCadastroFornecedor {
         }
         colecaoFornecedor.deleteById(id);
     }
+    @Override
+    public Fornecedor atualizar(Integer id, Fornecedor fornecedorAtualizado) throws EntidadeNaoEncontradaException {
+        Fornecedor fornecedorExistente = procurarFornecedorId(id);
+
+        // Atualize os atributos da sua entidade Fornecedor
+        fornecedorExistente.setNome(fornecedorAtualizado.getNome());
+        fornecedorExistente.setCnpj(fornecedorAtualizado.getCnpj());
+        fornecedorExistente.setTelefone(fornecedorAtualizado.getTelefone());
+        fornecedorExistente.setEmail(fornecedorAtualizado.getEmail());
+
+        return colecaoFornecedor.save(fornecedorExistente);
+    }
 }
