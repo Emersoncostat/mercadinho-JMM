@@ -4,8 +4,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import br.ufape.poo.mercado.model.Produto; 
-import br.ufape.poo.mercado.repository.ProdutoRepository; 
+import br.ufape.poo.mercado.cadastro.CadastroProduto;
+import br.ufape.poo.mercado.model.Produto;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -13,17 +13,15 @@ import br.ufape.poo.mercado.repository.ProdutoRepository;
 public class ProdutoControle {
 
     @Autowired
-    private ProdutoRepository repository; 
+    private CadastroProduto cadastroProduto;
 
-    
     @GetMapping
     public List<Produto> listar() {
-        return repository.findAll();
+        return cadastroProduto.listarProdutos();
     }
 
-   
     @PostMapping
     public Produto salvar(@RequestBody Produto produto) {
-        return repository.save(produto);
+        return cadastroProduto.salvarProduto(produto);
     }
 }
