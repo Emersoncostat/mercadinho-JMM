@@ -1,85 +1,42 @@
-'use client';
-
-import { useState, useEffect } from 'react';
+import Link from "next/link";
 
 export default function Home() {
-  const [produtos, setProdutos] = useState([]);
-  const [nome, setNome] = useState('');
-  const [preco, setPreco] = useState('');
-
-  const API_URL = 'http://localhost:8080/produtos';
-
-  const carregarProdutos = async () => {
-    try {
-      const res = await fetch(API_URL);
-      const data = await res.json();
-      setProdutos(data);
-    } catch (err) {
-      console.error('Erro ao buscar produtos:', err);
-    }
-  };
-
-  useEffect(() => {
-    carregarProdutos();
-  }, []);
-
-
-  const cadastrarProduto = async (e) => {
-    e.preventDefault();
-
-    try {
-      const res = await fetch(API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nome, preco: parseFloat(preco) }),
-      });
-
-      if (res.ok) {
-        alert('Produto cadastrado!');
-        setNome('');
-        setPreco('');
-        carregarProdutos();
-      }
-    } catch (err) {
-      console.error('Erro ao cadastrar:', err);
-    }
-  };
-
   return (
-    <main className="p-8 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Cadastro de Produtos</h1>
+      <main className="min-h-screen p-8 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">
+            Mercadinho-JMM
+          </h1>
+          <p className="text-gray-600 mb-8">
+            Seja bem-vindo! Escolha uma das opções abaixo para gerenciar o sistema.
+          </p>
 
-      <form onSubmit={cadastrarProduto} className="flex flex-col gap-3 mb-6">
-        <input
-          type="text"
-          placeholder="Nome do produto"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-          className="border p-2 rounded text-black"
-          required
-        />
-        <input
-          type="number"
-          step="0.01"
-          placeholder="Preço"
-          value={preco}
-          onChange={(e) => setPreco(e.target.value)}
-          className="border p-2 rounded text-black"
-          required
-        />
-        <button type="submit" className="bg-blue-600 text-white p-2 rounded font-bold">
-          Cadastrar
-        </button>
-      </form>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Link
+                href="/produtos"
+                className="p-6 bg-white rounded-lg shadow hover:shadow-md transition border border-gray-200"
+            >
+              <h2 className="text-xl font-semibold text-blue-600 mb-2">
+                Gerenciar Produtos &rarr;
+              </h2>
+              <p className="text-sm text-gray-500">
+                Visualize, adicione ou edite os produtos do estoque.
+              </p>
+            </Link>
 
-      <h2 className="text-xl font-bold mb-2">Lista de Produtos</h2>
-      <ul className="list-disc pl-5">
-        {produtos.map((p, index) => (
-          <li key={index}>
-            {p.nome || 'Item'} - R$ {p.preco || 0}
-          </li>
-        ))}
-      </ul>
-    </main>
+            <Link
+                href="/vendas"
+                className="p-6 bg-white rounded-lg shadow hover:shadow-md transition border border-gray-200"
+            >
+              <h2 className="text-xl font-semibold text-green-600 mb-2">
+                Caixa / Vendas &rarr;
+              </h2>
+              <p className="text-sm text-gray-500">
+                Registre novas vendas e consulte o histórico.
+              </p>
+            </Link>
+          </div>
+        </div>
+      </main>
   );
 }
