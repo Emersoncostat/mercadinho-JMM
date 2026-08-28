@@ -9,7 +9,7 @@ export default function ProdutosPage() {
     const [preco, setPreco] = useState('');
     const [carregando, setCarregando] = useState(false);
 
-    const API_URL = 'http://localhost:8080/produtos';
+    const API_URL = 'http://localhost:8082/produtos';
 
     const carregarProdutos = async () => {
         try {
