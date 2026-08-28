@@ -26,8 +26,7 @@ public class Produto {
     private String codigoBarras;
     private Date validade;
 
-    // Construtor JPA
-    protected Produto() {}
+
 
     // Construtor
     public Produto(String nome, String descricao, String marca, Double preco, String codigoBarras, Date validade) {
