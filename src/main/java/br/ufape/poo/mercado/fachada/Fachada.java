@@ -314,8 +314,15 @@ public class Fachada {
         Produto produto = cadastroProduto.procurarProdutoId(idProduto);
 
 
-        Venda novaVenda = new Venda("12/08/2026", 0.0, 0, desconto, produto);
-
+        Venda novaVenda = new Venda(
+                java.time.LocalDate.now().format(
+                        java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                ),
+                0.0,
+                0,
+                desconto,
+                produto
+        );
 
         novaVenda.setValorTotal(0.0);
         novaVenda.setQuantidadeProdutos(0);
