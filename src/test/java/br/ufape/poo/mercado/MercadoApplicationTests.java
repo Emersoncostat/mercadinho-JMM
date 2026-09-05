@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import br.ufape.poo.mercado.model.Lote;
 import br.ufape.poo.mercado.model.Mercado;
@@ -11,6 +12,7 @@ import br.ufape.poo.mercado.repository.LoteRepository;
 import br.ufape.poo.mercado.repository.MercadoRepository;
 
 @SpringBootTest(classes = MercadinhoJmmApplication.class)
+@ActiveProfiles("test")
 class MercadoApplicationTests {
 
 	@Autowired

@@ -44,6 +44,7 @@ public class CadastroFornecedor implements InterfaceCadastroFornecedor {
         fornecedorExistente.setNome(fornecedorAtualizado.getNome());
         fornecedorExistente.setCnpj(fornecedorAtualizado.getCnpj());
         fornecedorExistente.setTelefone(fornecedorAtualizado.getTelefone());
+        fornecedorExistente.setEndereco(fornecedorAtualizado.getEndereco());
         fornecedorExistente.setEmail(fornecedorAtualizado.getEmail());
 
         return colecaoFornecedor.save(fornecedorExistente);

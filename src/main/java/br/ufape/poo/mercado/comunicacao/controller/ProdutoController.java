@@ -49,14 +49,14 @@ public class ProdutoController {
     }
 
     @GetMapping("/{codigo}")
-    public ResponseEntity<ProdutoDTOResponse> buscarPorCodigo(@PathVariable Integer id) throws EntidadeNaoEncontradaException {
-        Produto produto = fachada.procurarProdutoId(id);
+    public ResponseEntity<ProdutoDTOResponse> buscarPorCodigo(@PathVariable("codigo") Integer codigo) throws EntidadeNaoEncontradaException {
+        Produto produto = fachada.procurarProdutoId(codigo);
         return ResponseEntity.ok(conversor.entityToResponse(produto));
     }
 
     @DeleteMapping("/{codigo}")
-    public ResponseEntity<Void> deletar(@PathVariable Integer id) throws EntidadeNaoEncontradaException {
-        fachada.removerProdutoId(id);
+    public ResponseEntity<Void> deletar(@PathVariable("codigo") Integer codigo) throws EntidadeNaoEncontradaException {
+        fachada.removerProdutoId(codigo);
         return ResponseEntity.noContent().build();
     }
 }

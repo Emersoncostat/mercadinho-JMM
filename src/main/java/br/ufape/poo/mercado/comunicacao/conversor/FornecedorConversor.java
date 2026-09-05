@@ -24,8 +24,8 @@ public class FornecedorConversor {
                 entity.getNome(),
                 entity.getCnpj(),
                 entity.getTelefone(),
-                entity.getEmail(),
-                entity.getEndereco()
+                entity.getEndereco(),
+                entity.getEmail()
         );
     }
 }

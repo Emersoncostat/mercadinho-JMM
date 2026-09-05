@@ -31,7 +31,11 @@ public class CadastroProduto implements InterfaceCadastroProduto {
         Produto produtoExistente = procurarProdutoId(id);
 
         produtoExistente.setNome(produto.getNome());
+        produtoExistente.setDescricao(produto.getDescricao());
+        produtoExistente.setMarca(produto.getMarca());
         produtoExistente.setPreco(produto.getPreco());
+        produtoExistente.setCodigoBarras(produto.getCodigoBarras());
+        produtoExistente.setValidade(produto.getValidade());
 
         return colecaoProduto.save(produtoExistente);
     }
